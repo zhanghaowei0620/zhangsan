@@ -30,48 +30,6 @@ class WeixinController extends Controller
         return $access;
     }
 
-    public function xmladd(Request $request)
-    {
-        //echo $request->input('echostr');
-        $con = mysqli_connect('127.0.0.1', 'root', '123456', 'test');
-        $str = file_get_contents("php://input");
-        $objxml = simplexml_load_string($str);
-        //var_dump($objxml);
-        file_put_contents("/tmp/zhoukao.log", $str, FILE_APPEND);
-
-        $Event = $objxml->Event;
-        $FromUserName = $objxml->FromUserName;
-        $ToUserName = $objxml->ToUserName;
-        $MsgType = $objxml->MsgType;
-        $MediaId = $objxml->MediaId;
-
-
-        $access = $this->accessToken();
-        $userUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access&openid=$FromUserName&lang=zh_CN";
-        $userAccessInfo = file_get_contents($userUrl);
-        $userInfo = json_decode($userAccessInfo, true);
-        //var_dump($userInfo);exit;
-        $name = $userInfo['nickname'];
-        $sex = $userInfo['sex'];
-        $headimgurl = $userInfo['headimgurl'];
-        $openid1 = $userInfo['openid'];
-        if ($Event == 'subscribe') {
-            $data = DB::table('wx')->where('openid', $FromUserName)->count();
-            //print_r($data);die;
-            if ($data == '0') {
-                $weiInfo = [
-                    'name' => $name,
-                    'sex' => $sex,
-                    'img' => $headimgurl,
-                    'openid' => $openid1,
-                    'time' => time()
-                ];
-                DB::table('wx')->insert($weiInfo);
-            }
-
-        }
-    }
-
     /**自定义菜单添加*/
     public function createadd(Request $request){
         $access = $this->accessToken();

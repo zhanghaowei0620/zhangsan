@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::any('accessToken','Weixin\WeixinController@accessToken');
+Route::any('userInfo','Weixin\WeixinController@userInfo');
+Route::any('createadd','Weixin\WeixinController@createadd');
