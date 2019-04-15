@@ -12,7 +12,7 @@ class WeixinController extends Controller
 {
     public function accessToken()
     {
-        Cache::pull('access');exit;
+        //Cache::pull('access');exit;
         $access = Cache('access');
         if (empty($access)) {
             $appid = "wx51db63563c238547";
@@ -31,7 +31,7 @@ class WeixinController extends Controller
     }
 
     /**自定义菜单添加*/
-    public function createadd(Request $request){
+    public function addcreate(Request $request){
         $access = $this->accessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$access";
         $arr = array(
