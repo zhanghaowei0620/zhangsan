@@ -17,3 +17,8 @@ Route::get('/', function () {
 Route::any('accessToken','Weixin\WeixinController@accessToken');
 Route::any('userInfo','Weixin\WeixinController@userInfo');
 Route::any('addcreate','Weixin\WeixinController@addcreate');
+Route::any('openiddo','Weixin\WeixinController@openiddo');
+
+//登陆
+Route::any('login','Weixin\IndexController@login');
+Route::any('loginDo','Weixin\IndexController@loginDo');
